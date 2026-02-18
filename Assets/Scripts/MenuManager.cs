@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,25 +7,38 @@ public class MenuManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject gamePanel;
+    [SerializeField] private GameObject gameOverPanel; // New!
 
     [Header("Managers")]
     [SerializeField] private GameManager gameManager;
     [SerializeField] private SaveManager saveManager;
 
-    [Header("UI Buttons")]
+    [Header("UI Elements")]
     [SerializeField] private Button continueButton;
+    [SerializeField] private TextMeshProUGUI finalScoreText; // New!
 
     private void Start()
     {
-      
-        mainMenuPanel.SetActive(true);
-        gamePanel.SetActive(false);
+        ReturnToMainMenu();
+    }
 
-     
+    public void ReturnToMainMenu()
+    {
+        gameOverPanel.SetActive(false);
+        gamePanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+
         if (continueButton != null)
         {
             continueButton.interactable = saveManager.HasSaveData();
         }
+    }
+
+    public void ShowGameOver(int finalScore)
+    {
+        gamePanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        finalScoreText.text = $"Final Score: {finalScore}";
     }
 
 

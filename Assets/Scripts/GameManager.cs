@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private SaveManager saveManager;
+    [SerializeField] private MenuManager menuManager;
 
     private List<Card> allCards = new List<Card>();
     private Queue<Card> flippedCardsQueue = new Queue<Card>(); // Allows continuous selection
@@ -124,6 +125,7 @@ public class GameManager : MonoBehaviour
             {
                 audioManager.PlayGameOverSound();
                 saveManager.ClearSave(); // Game won, clear save
+                menuManager.ShowGameOver(scoreManager.CurrentScore);
                 Debug.Log("Game Over! You Win!");
             }
         }
